@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="memberSQL">
+  
+  	<!-- <select id="login" parameterType="java.util.Map" resultType="memberDTO">
+  		select * from db.member where id=#{id} and pwd=#{pwd}
+  	</select> -->
+  	
+  	<!-- <insert id="join" parameterType="java.util.Map">
+		insert into users(username, password) values(#{username}, #{password});
+		insert into authorities values(#{username}, #{auth});
+	</insert> -->
+	
+  	<!-- 회원가입 -->
+  	
+  	<insert id="join" parameterType="java.util.Map">
+		insert into membertable(username, nickname, password, mycareer ) values(#{username}, #{nickname}, #{password}, #{mycareer})
+	</insert>
+	
+  	<!-- 회원 탈퇴 -->
+  	
+	 <delete id="withdrawal" parameterType="String">
+		delete from membertable where username=#{username}
+	</delete>   
+  	
+  	<!-- myPage에 뿌리는 정보 가져오기 -->
+  	
+  	<select id="getMyPage" parameterType="java.util.Map" resultType="memberDTO">
+  		select * from membertable where username=#{username}
+  	</select>
+  	
+  	<!-- 패스워드 닉네임 변경 -->
+  	<update id="revise" parameterType="java.util.Map">
+  		update membertable set nickname=#{nickname}, password=#{password} where username=#{username}
+  	</update>
+  	
+  	<!-- only 닉네임 변경 -->
+  	<update id="nicknameRevise" parameterType="java.util.Map">
+  		update membertable set nickname=#{nickname} where username=#{username}
+  	</update>
+  	
+	<!-- 관리자 페이지 회원정보 불러오기 -->
+	
+	 <select id="getBoardList" resultType="memberDTO">
+		select * from membertable;
+	</select> 
+	
+	<!-- 회원 탈퇴 시키기 -->
+	<delete id="memberDelete" parameterType="String">
+		delete from membertable where username=#{username}
+	</delete>
+	
+	<select id="getSearchAdminBoard" parameterType="java.util.Map" resultType="memberDTO">
+		select * from membertable 
+		<where>
+		<if test="username !=null">
+		username like #{username}
+		</if>
+		
+		<if test="nickname != null">
+		and nickname like #{nickname}
+		</if>
+		</where>
+		<if test="true">
+		order by created desc limit #{startpoint}, #{row}
+		</if>
+	</select>
+	
+	<select id="getTotalCount" parameterType="java.util.Map" resultType="int">
+        select count(*) from membertable
+        
+        <where>
+        <if test="username !=null">
+        	username like #{username}
+        </if>
+        
+        <if test="nickname !=null">
+        	and nickname like #{nickname}
+        </if>
+        
+        </where>
+	</select>
+
+    <select id="getTotalStats" resultType="member.bean.TotalDTO">
+    	select DATE_FORMAT(created, '%m') month, count(*) total FROM db.membertable GROUP BY month order by month asc
+    </select>
+
+	  
+  </mapper>
