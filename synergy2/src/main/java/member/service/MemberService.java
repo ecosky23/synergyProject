@@ -7,6 +7,7 @@ import java.util.Map;
 
 
 import member.bean.MemberDTO;
+import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
 
 public interface MemberService {
@@ -34,6 +35,8 @@ public interface MemberService {
 	public int getTotalCount(Map<String, Object> map);
 
 	public List<TotalDTO> getTotalStats();
+
+	public List<ProgrammingDTO> getProgrammingStats();
 
 	
 

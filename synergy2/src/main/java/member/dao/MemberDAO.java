@@ -5,6 +5,7 @@ import java.util.Map;
 
 
 import member.bean.MemberDTO;
+import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
 
 public interface MemberDAO {
@@ -33,6 +34,8 @@ public interface MemberDAO {
 	public abstract int getTotalCount(Map<String,Object> map);
 
 	public abstract List<TotalDTO> getTotalStats();
+
+	public abstract List<ProgrammingDTO> getProgrammingStats();
 
 
 }

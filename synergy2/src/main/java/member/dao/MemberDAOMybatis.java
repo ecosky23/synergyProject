@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import member.bean.MemberDTO;
+import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
 @Repository
 @Transactional
@@ -108,6 +109,13 @@ public class MemberDAOMybatis implements MemberDAO {
 	public List<TotalDTO> getTotalStats() {
 		
 		return sqlSession.selectList("memberSQL.getTotalStats");
+	}
+
+
+	@Override
+	public List<ProgrammingDTO> getProgrammingStats() {
+		
+		return sqlSession.selectList("memberSQL.getProgrammingStats");
 	}
 
 

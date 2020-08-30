@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import member.bean.MemberDTO;
+import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
 import member.dao.MemberDAO;
 
@@ -101,6 +102,12 @@ public class MemberServiceImpl implements MemberService {
 	public List<TotalDTO> getTotalStats() {
 		
 		return memberDAO.getTotalStats();
+	}
+
+	@Override
+	public List<ProgrammingDTO> getProgrammingStats() {
+		
+		return memberDAO.getProgrammingStats();
 	}
 
 

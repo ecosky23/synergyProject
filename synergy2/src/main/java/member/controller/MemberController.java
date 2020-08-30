@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import member.bean.MemberDTO;
+import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
 import member.service.MemberService;
 import net.sf.json.JSONArray;
@@ -34,6 +35,8 @@ public class MemberController {
 	private MemberDTO memberDTO;
 	@Autowired
 	private TotalDTO totalDTO;
+	@Autowired
+	private ProgrammingDTO programmingDTO;
 	
 	@RequestMapping(value="/all/loginForm",method= {RequestMethod.GET,RequestMethod.POST})
 	public String loginForm() {
@@ -231,7 +234,28 @@ public class MemberController {
 	  }
 	  
 	  
+	  @RequestMapping(value="/all/programmingStats",method=RequestMethod.GET) 
+	  public String programmingStats() {
+		  
+		  
+		  return "/all/programmingStats";
+		  
+	  }
 	  
+	  @ResponseBody
+	  @RequestMapping(value="/all/getProgrammingStats",method=RequestMethod.POST) 
+	  public JSONArray getProgrammingStats() {
+		  
+		  
+		List<ProgrammingDTO> list =  memberService.getProgrammingStats();
+		  
+		
+		JSONArray json = new JSONArray();
+		json.addAll(list);
+		
+		return json;
+		  
+	  }
 	  
 	    
 	  

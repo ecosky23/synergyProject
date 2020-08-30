@@ -86,6 +86,10 @@
     <select id="getTotalStats" resultType="member.bean.TotalDTO">
     	select DATE_FORMAT(created, '%m') month, count(*) total FROM db.membertable GROUP BY month order by month asc
     </select>
+    
+    <select id="getProgrammingStats" resultType="member.bean.ProgrammingDTO">
+    	select topic, count(*) topicTotal from db.cardboard group by topic order by topic asc;
+    </select>
 
 	  
   </mapper>
