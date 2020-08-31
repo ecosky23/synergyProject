@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
@@ -116,6 +116,13 @@ public class MemberDAOMybatis implements MemberDAO {
 	public List<ProgrammingDTO> getProgrammingStats() {
 		
 		return sqlSession.selectList("memberSQL.getProgrammingStats");
+	}
+
+
+	@Override
+	public List<MatchDTO> getListFromMatch() {
+		
+		return sqlSession.selectList("memberSQL.getListFromMatch");
 	}
 
 

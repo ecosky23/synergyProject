@@ -82,14 +82,23 @@
         
         </where>
 	</select>
-
+	
+	<!-- 월별 회원 가입자의 수 -->
+	
     <select id="getTotalStats" resultType="member.bean.TotalDTO">
     	select DATE_FORMAT(created, '%m') month, count(*) total FROM db.membertable GROUP BY month order by month asc
     </select>
+    
+     <!-- 프로그래밍 언어의 종류와 갯수 -->
     
     <select id="getProgrammingStats" resultType="member.bean.ProgrammingDTO">
     	select topic, count(*) topicTotal from db.cardboard group by topic order by topic asc;
     </select>
 
+	<!-- 관리자 지도 map -->
+	
+	<select id="getListFromMatch" resultType="member.bean.MatchDTO">
+		SELECT * FROM `db`.`match` ORDER BY `CREATED` ASC
+	</select>
 	  
   </mapper>

@@ -3,7 +3,7 @@ package member.dao;
 import java.util.List;
 import java.util.Map;
 
-
+import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
@@ -36,6 +36,8 @@ public interface MemberDAO {
 	public abstract List<TotalDTO> getTotalStats();
 
 	public abstract List<ProgrammingDTO> getProgrammingStats();
+
+	public abstract List<MatchDTO> getListFromMatch();
 
 
 }

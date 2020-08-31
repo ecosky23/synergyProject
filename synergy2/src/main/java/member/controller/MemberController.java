@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
@@ -37,6 +37,8 @@ public class MemberController {
 	private TotalDTO totalDTO;
 	@Autowired
 	private ProgrammingDTO programmingDTO;
+	@Autowired
+	private MatchDTO matchDTO;
 	
 	@RequestMapping(value="/all/loginForm",method= {RequestMethod.GET,RequestMethod.POST})
 	public String loginForm() {
@@ -257,7 +259,25 @@ public class MemberController {
 		  
 	  }
 	  
-	    
+	  @RequestMapping(value="/all/admin_map",method=RequestMethod.GET) 
+	  public String admin_map() {
+		  
+		  return "/all/admin_map";
+		  
+	  }
+	  
+	  @ResponseBody
+	  @RequestMapping(value="/all/admin_map_getList",method=RequestMethod.POST) 
+	  public JSONArray admin_map_getList() {
+		  
+		  List<MatchDTO> list =  memberService.getListFromMatch();
+		  
+		  JSONArray json = new JSONArray();
+		  json.addAll(list);
+		  
+		  return json;
+		  
+	  }  
 	  
 	  
 	 

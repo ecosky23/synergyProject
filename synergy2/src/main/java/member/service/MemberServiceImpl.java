@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
+import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
@@ -108,6 +108,12 @@ public class MemberServiceImpl implements MemberService {
 	public List<ProgrammingDTO> getProgrammingStats() {
 		
 		return memberDAO.getProgrammingStats();
+	}
+
+	@Override
+	public List<MatchDTO> getListFromMatch() {
+		
+		return memberDAO.getListFromMatch();
 	}
 
 

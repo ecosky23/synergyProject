@@ -5,7 +5,7 @@ package member.service;
 import java.util.List;
 import java.util.Map;
 
-
+import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
 import member.bean.TotalDTO;
@@ -37,6 +37,8 @@ public interface MemberService {
 	public List<TotalDTO> getTotalStats();
 
 	public List<ProgrammingDTO> getProgrammingStats();
+
+	public List<MatchDTO> getListFromMatch();
 
 	
 

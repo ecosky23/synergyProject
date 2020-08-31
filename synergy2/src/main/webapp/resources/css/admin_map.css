@@ -51,7 +51,7 @@ html, body{
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
-    padding-top: 10px;
+   	padding-top: 10px;
 }
 
 .aside_menu_list_1:hover{
@@ -100,7 +100,6 @@ html, body{
 .aside_menu_list_4:hover{
     color: rgba(200, 200, 200, 200);
 }
-
 
 .navbar{
     margin: 0;
@@ -183,8 +182,6 @@ input[id="menuicon"]:checked + label + div {
 
 
 
-
-
 /* header */
 
 
@@ -208,7 +205,7 @@ input[id="menuicon"]:checked + label + div {
 }
 
 
-/* 차트 */
+/* main 지도 */
 
 .section{
     float: left;
@@ -216,10 +213,13 @@ input[id="menuicon"]:checked + label + div {
     height: 700px;
 }
 
-.section_chart{
+.section_main{
     padding-top: 100px;  
     padding-left: 50px;  
 }
+
+
+/* footer */
 
 .footer{
     float: left;
@@ -251,13 +251,14 @@ input[id="menuicon"]:checked + label + div {
         cursor: pointer;
         margin-left: 20px;
         margin-top: 35px;
+        z-index: 4;
     }
 
     div[class="sidebar"]{
         display: block;
         border-right: 1px solid grey;
         width: 40%;
-
+		z-index: 3;
     }
 
     div[class="sidebar"] ul{
@@ -281,7 +282,7 @@ input[id="menuicon"]:checked + label + div {
         
     }
 
-
+    
     /* header */
 
     .header{
@@ -295,10 +296,12 @@ input[id="menuicon"]:checked + label + div {
         height: 70%;
     }
 
-    .section_chart{
+    .section_main{
         width: 100%;
         padding-left: 0px;
+        
     }
+    
 
     .footer{
         float: none;
@@ -308,4 +311,3 @@ input[id="menuicon"]:checked + label + div {
   
 
 }
-

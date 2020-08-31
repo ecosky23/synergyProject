@@ -24,16 +24,50 @@
                 <ul class="aside_menu_list">
                 	<li class="aside_menu_top">Admin Menu</li>
                     <li class="aside_menu_list_1">
-                    	<img src="../resources/image/chartIcon2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
+                    	<img src="../resources/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
                     	<img src="../resources/image/right2.png" style="width: 13px; height: 13px; margin-right: 10px; padding-left: 80px;"/>
                     </li>
                     <li class="aside_menu_list_2">
-                     	<img src="../resources/image/task.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                     	<img src="../resources/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
                      	<img src="../resources/image/right2.png" style="width: 13px; height: 13px; margin-right: 10px; padding-left: 52px;"/>
                      </li>
+                     <li class="aside_menu_list_3">
+                        <img src="../resources/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    </li>
+                    <li class="aside_menu_list_4">
+                        <img src="../resources/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
+                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    </li>
                 </ul>
             </div>
         </aside>
+        
+        
+        <input type="checkbox" id="menuicon">
+        <label for="menuicon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <div class="sidebar">
+            <ul>
+                <li class="sidebar_menu">Admin Menu</li>
+                <li><a><img src="../resources/image/chartIcon.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Member
+                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; margin-left: 30px;"/>
+                </a></li>
+                <li><a><img src="../resources/image/chartIcon2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
+                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                </a></li>   
+                <li><a><img src="../resources/image/task.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                </a></li>
+                <li><a><img src="../resources/image/map.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
+                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                </a></li>
+            </ul>
+        </div>
+        
         <header class="header">
             <div class="header_title">Admin Board</div>
         </header>
@@ -59,7 +93,8 @@ $(document).ready(function(){
 	
 	let a = new Array();
 			
-			
+	let b = new Array();
+	
 	$.ajax({
 		type: 'post',
 		url: '/synergy2/all/getAdminStats',
@@ -78,6 +113,7 @@ $(document).ready(function(){
 				
 				a[index] = items.total;
 				
+				b[index] = items.month;
 			});
 			
 			
@@ -86,10 +122,10 @@ $(document).ready(function(){
 			var myChart = new Chart(ctx, {
 			    type: 'bar',
 			    data: {
-			        labels: ['5월', '6월', '7월', '8월'],
+			        labels: b,
 			        datasets: [{
 			            label: '회원 가입자수',
-			            data: [a[0], a[1], a[2], a[3]],
+			            data: a,
 			            backgroundColor: [
 			                'rgba(255, 99, 132, 0.2)',
 			                'rgba(54, 162, 235, 0.2)',
