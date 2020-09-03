@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
+import member.bean.Search;
 import member.bean.TotalDTO;
 @Repository
 @Transactional
@@ -91,18 +92,6 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 
 
-	@Override
-	public List<MemberDTO> getSearchAdminBoard(Map<String, Object> map) {
-		
-		return sqlSession.selectList("memberSQL.getSearchAdminBoard", map);
-	}
-
-
-	@Override
-	public int getTotalCount(Map<String,Object> map) {
-		
-		return sqlSession.selectOne("memberSQL.getTotalCount", map);
-	}
 
 
 	@Override
@@ -123,6 +112,20 @@ public class MemberDAOMybatis implements MemberDAO {
 	public List<MatchDTO> getListFromMatch() {
 		
 		return sqlSession.selectList("memberSQL.getListFromMatch");
+	}
+
+
+	@Override
+	public int getBoardListCnt(Search search) {
+		
+		return sqlSession.selectOne("memberSQL.getBoardListCnt", search);
+	}
+
+
+	@Override
+	public List<MemberDTO> getBoardList(Search search) {
+		
+		return sqlSession.selectList("memberSQL.getBoardList", search);
 	}
 
 

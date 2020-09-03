@@ -56,13 +56,13 @@
                 <li><a class="sidebar_menu_button"><img src="../resources/image/chartIcon.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Member
                     <img src="../resources/image/right.png" style="width: 13px; height: 13px; margin-left: 30px;"/>
                 </a></li>
-                <li><a class="sidebar_menu_button"><img src="../resources/image/chartIcon2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
+                <li><a class="sidebar_menu_button"><img src="../resources/image/chartIcon2.png" style="width: 13px; height: 13px;"/>Programming
                     <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>   
-                <li><a class="sidebar_menu_button"><img src="../resources/image/task.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                <li><a class="sidebar_menu_button"><img src="../resources/image/task.png" style="width: 13px; height: 13px;"/>Management
                     <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>
-                <li><a class="sidebar_menu_button"><img src="../resources/image/map.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
+                <li><a class="sidebar_menu_button"><img src="../resources/image/map.png" style="width: 13px; height: 13px;"/>Location Map
                     <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>
             </ul>
@@ -75,15 +75,15 @@
         <section class="section">
         
         	<div class="searchDiv">
-	           <form action="/synergy2/all/getAdminBoard" method="get">
-		            <select name="searchOption" id="searchOption">
+	           
+		            <select name="searchType" id="searchType">
 		            	<option value="username">아이디</option>
 		            	<option value="nickname">닉네임</option>
 		            </select>
 		            <input type="text" name="keyword" id="keyword">
-		            <input type="submit" id="searchBtn" value="검색">
+		            <button name="btnSearch" id="btnSearch">검색</button>
 	        	
-	        	</form>
+	        	
         	</div>
         
             <div class="list_wrap">
@@ -112,43 +112,141 @@
            
          	<div class="paginationDiv">
         		<ul class="pagination"> 
-        			<li><a href="/synergy2/all/getAdminBoard?nowpage=0&searchOption=${searchOption}&keyword=${keyword}">&lt;&lt;</a></li> 
-        		<!--현재 페이지가 0보다 작아질 경우 이전 버튼을 disabled하는 조건문 --> 
-        				<c:choose> 
-        					<c:when test="${nowpage <= 0}"> 
-        						<li class="disabled"><a href="#">&lt;</a></li> 
-        					</c:when> 
-        						<c:otherwise> 
-        							<li><a href="/synergy2/all/getAdminBoard?nowpage=${nowpage-1}&searchOption=${searchOption}&keyword=${keyword}">&lt;</a></li> 
-        						</c:otherwise> 
-        				</c:choose> 
-        				<!--해당하는 페이지로 갈 수 있는 버튼 --> 
-        					<c:forEach var="i" begin="0" end="${totalpage}">
-  									
-									 <li><a href="/synergy2/all/getAdminBoard?nowpage=${i}&searchOption=${searchOption}&keyword=${keyword}">${i+1}</a></li> 									
-        						 
-        					</c:forEach>
-        							<%-- <li><a href="/synergy2/all/getAdminBoard?nowpage=${i}&searchOption=${searchOption}&keyword=${keyword}">${i+1}</a></li> --%>  		
-        				<!--현재 페이지가 totalpage보다 커질 경우 다음 버튼을 disabled하는 조건문 --> 
-        				<c:choose> 
-        					<c:when test="${nowpage >= totalpage }"> 
-        							<li class="disabled"><a href="#">&gt;</a></li> 
-        					</c:when> 
-        						<c:otherwise> 
-        							<li><a href="/synergy2/all/getAdminBoard?nowpage=${nowpage+1}&searchOption=${searchOption}&keyword=${keyword}">&gt;</a></li> 
-        						</c:otherwise> 
-     		   			</c:choose> 
-        							<li><a href="/synergy2/all/getAdminBoard?nowpage=${totalpage}&searchOption=${searchOption}&keyword=${keyword}">&gt;&gt;</a></li> 
+        		
+					<c:if test="${pagination.first}">
+						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/synergy2/all/adminBoard?page=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
+					</c:if>
+        		
+        			<c:if test="${pagination.prev}">
+
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}', '${search.searchType }', '${search.keyword }')">〈</a></li>
+
+					</c:if>
+
+					<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
+
+						<li class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}', '${search.searchType }', '${search.keyword }')"> ${idx} </a></li>
+
+					</c:forEach>	
+
+					<c:if test="${pagination.next}">
+
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}', '${search.searchType }', '${search.keyword }')" >〉</a></li>
+
+					</c:if>
+					
+					<c:if test="${pagination.last}">
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_last('${pagination.pageCnt}', '${pagination.rangeSize}','${search.searchType }', '${search.keyword }')" >》</a></li>
+					</c:if>	
+	
         		</ul>
 
-         	  </div>
-        	
-        	
-        	
+    	    </div>	
         </section>
         <footer class="main_footer"></footer>
     </div>
+    <c:url var="adminBoardUrl" value="/all/adminBoard"></c:url>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+
+//검색버튼 클릭 이벤트
+
+$(document).on('click', '#btnSearch', function(e){
+	e.preventDefault();
+	var url = "${adminBoard}";
+
+	url = url + "?searchType=" + $('#searchType').val();
+
+	url = url + "&keyword=" + $('#keyword').val();
+
+	location.href = encodeURI(url);
+
+	console.log(url);
+
+});
+
+//이전 버튼 이벤트
+
+function fn_prev(page, range, rangeSize, searchType, keyword) {
+
+		var page = ((range - 2) * rangeSize) + 1;
+
+		var range = range - 1;
+
+		var url = "${pageContext.request.contextPath}/all/adminBoard";
+
+		url = url + "?page=" + page;
+
+		url = url + "&range=" + range;
+		
+		url = url + "&searchType=" + $('#searchType').val();
+		
+		url = url + "&keyword=" + keyword;
+		
+		location.href = url;
+
+	}
+
+
+
+  //페이지 번호 클릭
+
+	function fn_pagination(page, range, rangeSize, searchType, keyword) {
+
+		var url = "${pageContext.request.contextPath}/all/adminBoard";
+
+		url = url + "?page=" + page;
+
+		url = url + "&range=" + range;
+		
+		url = url + "&searchType=" + searchType;
+		
+		url = url + "&keyword=" + keyword;
+
+		location.href = url;	
+
+	}
+
+
+	//다음 버튼 이벤트
+
+	function fn_next(page, range, rangeSize, searchType, keyword) {
+
+		var page = parseInt((range * rangeSize)) + 1;
+
+		var range = parseInt(range) + 1;
+
+		var url = "${pageContext.request.contextPath}/all/adminBoard";
+
+		url = url + "?page=" + page;
+
+		url = url + "&range=" + range;
+		
+		url = url + "&searchType=" + $('#searchType').val();
+		
+		url = url + "&keyword=" + keyword;
+
+
+		location.href = url;
+
+	}
+	
+	//맨끝 버튼 이벤트
+	function fn_last(pageCnt, rangeSize, searchType, keyword) {
+		
+		var url = "${pageContext.request.contextPath}/all/adminBoard";
+		var range = Math.ceil(pageCnt/rangeSize);
+		url = url + "?page=" + pageCnt;
+		url = url + "&range=" + range;
+		url = url + "&searchType=" + searchType;
+		url = url + "&keyword=" + keyword;
+		location.href = url;
+		
+	}
+
+
+
+</script>
 <script type="text/javascript">
 
  	

@@ -41,47 +41,12 @@
   		update membertable set nickname=#{nickname} where username=#{username}
   	</update>
   	
-	<!-- 관리자 페이지 회원정보 불러오기 -->
-	
-	 <select id="getBoardList" resultType="memberDTO">
-		select * from membertable;
-	</select> 
 	
 	<!-- 회원 탈퇴 시키기 -->
 	<delete id="memberDelete" parameterType="String">
 		delete from membertable where username=#{username}
 	</delete>
 	
-	<select id="getSearchAdminBoard" parameterType="java.util.Map" resultType="memberDTO">
-		select * from membertable 
-		<where>
-		<if test="username !=null">
-		username like #{username}
-		</if>
-		
-		<if test="nickname != null">
-		and nickname like #{nickname}
-		</if>
-		</where>
-		<if test="true">
-		order by created desc limit #{startpoint}, #{row}
-		</if>
-	</select>
-	
-	<select id="getTotalCount" parameterType="java.util.Map" resultType="int">
-        select count(*) from membertable
-        
-        <where>
-        <if test="username !=null">
-        	username like #{username}
-        </if>
-        
-        <if test="nickname !=null">
-        	and nickname like #{nickname}
-        </if>
-        
-        </where>
-	</select>
 	
 	<!-- 월별 회원 가입자의 수 -->
 	
@@ -100,5 +65,57 @@
 	<select id="getListFromMatch" resultType="member.bean.MatchDTO">
 		SELECT * FROM `db`.`match` ORDER BY `CREATED` ASC
 	</select>
+	
+	<!-- 관리자 페이지 회원정보 불러오기 -->
+	
+	 <select id="getBoardList" parameterType="member.bean.Search" resultType="memberDTO">
+		select * from membertable 
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="searchType=='username' and keyword != null and keyword != '' ">
+
+				AND username like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='nickname' and keyword != null and keyword != '' ">
+
+				AND nickname like CONCAT('%', #{keyword}, '%')
+
+			</if>	
+
+		</trim>
+
+		limit #{startList}, #{listSize};
+	</select> 
+	 
+	<!-- 총 글의 수 -->
+	
+	<select id="getBoardListCnt" parameterType="member.bean.Search" resultType="int">
+		select count(*) as listCnt from membertable
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+
+				<if test="searchType=='username'">
+	
+					AND username like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+
+     		 </if>
+
+		</trim>
+
+	</select> 
+	 
 	  
   </mapper>

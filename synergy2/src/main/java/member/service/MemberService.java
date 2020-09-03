@@ -8,6 +8,7 @@ import java.util.Map;
 import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
+import member.bean.Search;
 import member.bean.TotalDTO;
 
 public interface MemberService {
@@ -30,15 +31,19 @@ public interface MemberService {
 
 	public List<MemberDTO> getBoardList();
 
-	public List<MemberDTO> getSearchAdminBoard(Map<String, Object> map);
+	
 
-	public int getTotalCount(Map<String, Object> map);
+	
 
 	public List<TotalDTO> getTotalStats();
 
 	public List<ProgrammingDTO> getProgrammingStats();
 
 	public List<MatchDTO> getListFromMatch();
+
+	public int getBoardListCnt(Search search);
+
+	public List<MemberDTO> getBoardList(Search search);
 
 	
 

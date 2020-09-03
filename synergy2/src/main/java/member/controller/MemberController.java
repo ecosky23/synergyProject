@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
+import member.bean.Search;
 import member.bean.TotalDTO;
 import member.service.MemberService;
 import net.sf.json.JSONArray;
@@ -137,70 +138,40 @@ public class MemberController {
 	 
 	  }
 	  
-		/*
-		 * @RequestMapping(value="/admin/adminBoard2",method=RequestMethod.GET) public
-		 * String adminBoard2() { return "/admin/adminBoard2"; }
-		 */
-	  
-	  /*
-		  @ResponseBody
-		  @RequestMapping(value="/all/adminBoard",method=RequestMethod.GET) 
-		  public ModelAndView adminBoard() {
-		  
-		  List<MemberDTO> list = memberService.getMember();
-		  
-		  ModelAndView mav = new ModelAndView(); 
-		  mav.addObject("list", list);
-		  
-		  mav.setViewName("/all/adminBoard"); 
-		  return mav;
-		  
-		  }
-		*/
-	  
-	  @RequestMapping(value="/all/getAdminBoard",method=RequestMethod.GET) 
-	  public String getAdminBoard(@RequestParam(value="searchOption", defaultValue = "null", required=false) String searchOption,
-			  @RequestParam(value="keyword", defaultValue = "null", required=false) String keyword,
-			  @RequestParam(value="nowpage", defaultValue = "0") int nowpage, Model model) {
-		  
-		  
-		  int row =7;
-		  
-		  int startpoint = nowpage * row;
-
-		  Map<String, Object> map = new HashMap<String, Object>();
-		  map.put(searchOption, "%" + keyword + "%");
-		  map.put("startpoint", startpoint);
-		  map.put("row", row);
-		 
-		  List<MemberDTO> list = memberService.getSearchAdminBoard(map); 
-		  
-		  int totalList = memberService.getTotalCount(map);
-		  
-		  int totalpage  = totalList / row -1;
-		  
-		  if((totalList % row) > 0) totalpage++;
-		  
-		  
-		  model.addAttribute("nowpage", nowpage); 
-		  model.addAttribute("totalpage", totalpage); 
-		  model.addAttribute("list", list);
-		  
-		  model.addAttribute("keyword", keyword);
-		  model.addAttribute("searchOption", searchOption);
-		  
-
-		  return "/all/adminBoard";
-		  
-	  }
+		
 	  
 	  @RequestMapping(value="/all/adminBoard",method=RequestMethod.GET) 
-	  public String adminBoard() {
+	  public String adminBoard(Model model 
+			  					, @RequestParam(required = false, defaultValue = "1") int page
+			  					, @RequestParam(required = false, defaultValue = "1") int range
+			  					, @RequestParam(required = false, defaultValue = "username") String searchType
+			  					, @RequestParam(required = false) String keyword
+			  					, @ModelAttribute("search") Search search) {
+		  
+		  	
+		  	model.addAttribute("search", search);	
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+		  
+		  
+		  //전체 게시글의 수
+		  int listCnt = memberService.getBoardListCnt(search);
+		  
+		  //Pagination 객체생성
+		   search.pageInfo(page, range, listCnt);
+
+		  
+		  
+		  List<MemberDTO> list = memberService.getBoardList(search);
+		  
+		  model.addAttribute("list", list);
+		  model.addAttribute("pagination", search);
 		  
 		  
 		  return "/all/adminBoard";
 		  
 	  }
+	  
 	  
 	  @RequestMapping(value="/all/adminStats",method=RequestMethod.GET) 
 	  public String adminStats() {

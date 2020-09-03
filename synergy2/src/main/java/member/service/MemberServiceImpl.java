@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
+import member.bean.Search;
 import member.bean.TotalDTO;
 import member.dao.MemberDAO;
 
@@ -84,19 +85,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getBoardList();
 	}
 
-	@Override
-	public List<MemberDTO> getSearchAdminBoard(Map<String,Object> map) {
-		
-		
-		
-		return memberDAO.getSearchAdminBoard(map);
-	}
-
-	@Override
-	public int getTotalCount(Map<String,Object> map) {
-		
-		return memberDAO.getTotalCount(map);
-	}
+	
 
 	@Override
 	public List<TotalDTO> getTotalStats() {
@@ -114,6 +103,18 @@ public class MemberServiceImpl implements MemberService {
 	public List<MatchDTO> getListFromMatch() {
 		
 		return memberDAO.getListFromMatch();
+	}
+
+	@Override
+	public int getBoardListCnt(Search search) {
+		
+		return memberDAO.getBoardListCnt(search);
+	}
+
+	@Override
+	public List<MemberDTO> getBoardList(Search search) {
+		
+		return memberDAO.getBoardList(search);
 	}
 
 

@@ -12,7 +12,7 @@
 <script defer src="../resources/js/admin_map.js" ></script>
 <link rel="stylesheet" href="../resources/css/admin_map.css" />
 </head>
-<body onload="drawInfo()">
+<body>
 
 	<div id="wrap">
     

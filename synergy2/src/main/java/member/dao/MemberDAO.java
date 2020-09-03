@@ -6,6 +6,7 @@ import java.util.Map;
 import member.bean.MatchDTO;
 import member.bean.MemberDTO;
 import member.bean.ProgrammingDTO;
+import member.bean.Search;
 import member.bean.TotalDTO;
 
 public interface MemberDAO {
@@ -29,15 +30,17 @@ public interface MemberDAO {
 
 	public abstract List<MemberDTO> getBoardList();
 
-	public abstract List<MemberDTO> getSearchAdminBoard(Map<String, Object> map);
-
-	public abstract int getTotalCount(Map<String,Object> map);
+	
 
 	public abstract List<TotalDTO> getTotalStats();
 
 	public abstract List<ProgrammingDTO> getProgrammingStats();
 
 	public abstract List<MatchDTO> getListFromMatch();
+
+	public abstract int getBoardListCnt(Search search);
+
+	public abstract List<MemberDTO> getBoardList(Search search);
 
 
 }
