@@ -117,6 +117,27 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getBoardList(search);
 	}
 
+	@Override
+	public List<MemberDTO> getWithdrawalList(String username) {
+		
+		return memberDAO.getWithdrawalList(username);
+	}
+
+	@Override
+	public List<MemberDTO> getNickName(String nickname) {
+		
+		return memberDAO.getNickName(nickname);
+	}
+
+	@Override
+	public void passwordRevise(Map<String, String> map) {
+		String password = encoder.encode(map.get("password"));
+		map.replace("password", password);
+		
+		memberDAO.passwordRevise(map);
+		
+	}
+
 
 	
 	

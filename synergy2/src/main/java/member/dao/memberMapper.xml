@@ -4,14 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="memberSQL">
   
-  	<!-- <select id="login" parameterType="java.util.Map" resultType="memberDTO">
-  		select * from db.member where id=#{id} and pwd=#{pwd}
-  	</select> -->
-  	
-  	<!-- <insert id="join" parameterType="java.util.Map">
-		insert into users(username, password) values(#{username}, #{password});
-		insert into authorities values(#{username}, #{auth});
-	</insert> -->
 	
   	<!-- 회원가입 -->
   	
@@ -115,7 +107,20 @@
 
 		</trim>
 
-	</select> 
+	</select>
 	 
+	 <!-- mypage 회원정보 수정 -->
+	 
+	<select id="getWithdrawalList" parameterType="String" resultType="memberDTO">
+		select * from membertable where username=#{username}
+	</select> 
+	
+	<select id="getNickName" parameterType="String" resultType="memberDTO">
+		select * from membertable where nickname=#{nickname}
+	</select>
+	
+	<select id="passwordRevise" parameterType="java.util.Map">
+		update membertable set password=#{password} where nickname=#{nickname}
+	</select>
 	  
   </mapper>

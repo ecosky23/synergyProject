@@ -6,8 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<!-- default header name is X-CSRF-TOKEN -->
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>    
     <title>MyPage</title>
     <link rel="stylesheet" href="../resources/css/myPage.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
 
@@ -95,11 +100,11 @@
                 <div class="withdrawDiv">
                     
                     <div class="withdrawDiv_label">
-                    	<form name="withdrawalForm" id="withdrawalForm" method="post" action="/synergy2/member/withdrawal">
-                    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    	
+                    	
                       	<input type="hidden" id="username" name="username" value="${memberDTO.username}">
-                      	</form>
-                        <div class="withdrawBtn"><input type="button" value="회원 탈퇴" id="withdrawBtn">  
+                      	
+                        <div class="withdrawBtn"><button id="withdrawBtn">회원 탈퇴</button>  
                         </div>    
                     </div>
                 </div>
@@ -115,17 +120,119 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
+var btn = document.getElementById("withdrawBtn");
+
+btn.onclick = async function(){
+
+
+	var csrfHeaderName = document.getElementById('_csrf_header').content;
+	var csrfTokenValue = document.getElementById('_csrf').content;
+
+	await Swal.fire({
+		  title: '회원을 탈퇴 하시겠습니까?',
+		  text: "모든 개인 정보가 삭제됩니다. ",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText: '취 소',
+		  confirmButtonText: '회원 탈퇴'
+		}).then((result) => {
+		  if (result.value) {
+			  
+			  const { value: password } = Swal.fire({
+				  title: '비밀번호를 입력해 주세요',
+				  input: 'password',
+				  inputPlaceholder: '비밀번호를 입력해 주세요',
+				  inputAttributes: {
+				    maxlength: 10,
+				    autocapitalize: 'off',
+				    autocorrect: 'off'
+				  }
+				}).then((res)=>{
+					//비번 입력 후 ok
+					if	(res.isConfirmed) {
+						let username = document.getElementById('username').value;
+						
+						$.ajax({
+							type: 'post',
+							url: '/synergy2/member/withdrawal',
+							data: {'username' : username,
+									'password' : res.value},
+							beforeSend:function(xhr){
+								xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+							},
+							success: function(data){
+								
+							//alert(data);	
+								
+							if(data == 'equal'){
+
+								Swal.fire({
+									  icon: 'success',
+									  title: '회원 탈퇴 성공',
+									  text: '지금까지 이용해 주셔서 감사합니다.',
+								}).then((result) => {
+									
+									location.href="/synergy2/all/loginForm";
+								
+								})
+
+								
+							}else{
+								
+								Swal.fire({
+									  icon: 'error',
+									  title: '비번이 틀렸습니다.',
+									  text: '다시 입력해 주세요',
+								})
+								
+								
+							}
+							
+								
+							},
+							error: function(err){
+								console.log(err);
+							}		
+									
+						});
+						
+						
+						
+					//비번 입력 중단
+					}else {
+						Swal.fire('취소', '입력을 취소하셨습니다', 'error');
+					}
+				});
+			 
+				
+		  }
+		})
+	
+	
+	
+}
+
+
+</script>
+<script type="text/javascript">
+
 $('#reviseBtn').click(function(){
 
+	var csrfHeaderName = document.getElementById('_csrf_header').content;
+	var csrfTokenValue = document.getElementById('_csrf').content;	
+	
+	
 $('#pwdDiv').empty();	
 $('#nicknameDiv').empty();
 	
-let pwd = $('#password').val();
+let password = $('#password').val();
 let repwd = $('#repwd').val();
 let nickname = $('#nickname').val();
-
+let username = document.getElementById('username').value;
 	
-	if(pwd != repwd){
+	if(password != repwd){
 		
 		$('#pwdDiv').text("비밀번호를 동일하게 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");	
 		
@@ -134,20 +241,74 @@ let nickname = $('#nickname').val();
 		$('#nicknameDiv').text("닉네임을 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 	
 	}else{
-		document.forms[0].submit();	
+		
+		
+		$.ajax({
+			
+			type: 'post',
+			url: '/synergy2/member/revise',
+			data: {'username':username,
+					'password':password,
+					'nickname':nickname },
+			beforeSend:function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			success: function(data){
+
+				if(data =='onlyNickname'){
+					
+					Swal.fire({
+						  icon: 'success',
+						  title: '닉네임 변경 완료',
+						  text: '닉네임이 변경 되었습니다.',
+					}).then((result) => {
+						
+						location.href="/synergy2/member/welcome";
+					
+					})
+					
+				}else if(data =='fail'){
+					
+					Swal.fire({
+						  icon: 'error',
+						  title: '닉네임 중복',
+						  text: '닉네임이 중복 됩니다.',
+					})
+					
+				}else if(data =='onlyPassword'){
+					Swal.fire({
+						  icon: 'success',
+						  title: '비밀번호 변경 완료',
+						  text: '닉네임 중복 : 변경을 원하시면 다시 확인해 주세요.',
+					}).then((result) => {
+						
+						location.href="/synergy2/member/welcome";
+					
+					})
+					
+				}else if(data == 'dualSuccess'){
+					Swal.fire({
+						  icon: 'success',
+						  title: '비밀번호 닉네임 변경 완료',
+						  text: '비밀번호와 닉네임이 변경 되었습니다.',
+					}).then((result) => {
+						
+						location.href="/synergy2/member/welcome";
+					
+					})
+				}
+				
+			},
+			error: function(err){
+				console.log(err);
+			}
+					
+		});
+		
+		
 	}
 	
 });
-
-$('#withdrawBtn').click(function(){
-	
-let withdrawal = confirm("정말 회원을 탈퇴 하시겠습니까?");
-
-	if(withdrawal){
-		document.forms[1].submit()
-	}
-});
-
 
 </script>
 </body>

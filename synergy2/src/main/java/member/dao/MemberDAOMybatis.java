@@ -129,6 +129,28 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 
 
+	@Override
+	public List<MemberDTO> getWithdrawalList(String username) {
+		
+		return sqlSession.selectList("memberSQL.getWithdrawalList", username);
+	}
+
+
+	@Override
+	public List<MemberDTO> getNickName(String nickname) {
+		
+		return sqlSession.selectList("memberSQL.getNickName", nickname);
+	}
+
+
+	@Override
+	public void passwordRevise(Map<String, String> map) {
+		
+		sqlSession.update("memberSQL.passwordRevise", map);
+		
+	}
+
+
 
 
 	

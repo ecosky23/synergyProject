@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,8 @@
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resources/css/adminBoard.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
     
@@ -99,7 +101,7 @@
                     <li class="list_group_main">
                         <div class="nickname" name="nickname"><c:out value="${memberDTO.nickname }"></c:out></div>
                         <div class="username" id="username${status.count}" name="username"><c:out value="${memberDTO.username }"></c:out></div>
-                        <div class="created" name="created"><c:out value="${memberDTO.created }"></c:out></div>
+                        <div class="created" name="created"><fmt:formatDate value="${memberDTO.created }" pattern="yyyy-MM-dd"/></div>
                         <input type="hidden" id="username" name="username" value="${memberDTO.username}">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <div class="button"><input type="button" class="withdrawalBtn" id="withdrawalBtn${status.count}" value="회원 탈퇴"></div>  
@@ -249,56 +251,70 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 </script>
 <script type="text/javascript">
 
- 	
-	var csrfHeaderName = "${_csrf.headerName}";
-	var csrfTokenValue = document.getElementById('_csrf').content;
+
+var csrfHeaderName = "${_csrf.headerName}";
+var csrfTokenValue = document.getElementById('_csrf').content;
+
+
 	
+let a = document.querySelectorAll('input.withdrawalBtn');
+
+
+for(let i = 0; i<a.length; i++){
 	
- 	
-	let a = document.querySelectorAll('input.withdrawalBtn');
+	let username = a[i].parentElement.parentElement.children[1].innerText;
 	
+	console.log(username);
 	
-	for(let i = 0; i<a.length; i++){
+    a[i].addEventListener('click', ()=> {    
+    
+	//let result = confirm("정말 탈퇴 시키시겠습니까?");
+	
+	Swal.fire({
 		
-		let username = a[i].parentElement.parentElement.children[1].innerText;
-		
-		console.log(username);
-		
-	    a[i].addEventListener('click', ()=> {    
+	  title: '회원 탈퇴',
+	  text: "회원을 탈퇴 시키시겠습니까?",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: '탈퇴시키기',
+	  cancelButtonText: '취 소'
+	}).then((result) => {
+	  if (result.value) {
 	    
-		let result = confirm("정말 탈퇴 시키시겠습니까?");
-	    
-		if(result){
-		
-	    $.ajax({
-			type: 'post',
-			url: '/synergy2/all/memberDelete',
-			data: {'username' : username},
+		  $.ajax({
+				type: 'post',
+				url: '/synergy2/all/memberDelete',
+				data: {'username' : username},
+				
+				beforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				success: function(data){
+					
+					a[i].parentElement.parentElement.remove();
+					
+					
+				},
+				error: function(err){
+					console.log(err);
+				}
 			
-			beforeSend:function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			},
-			success: function(data){
-				
-				a[i].parentElement.parentElement.remove();
-				
-				
-			},
-			error: function(err){
-				console.log(err);
-			}
-		
-		});
-	    
-		
-		}
-		
-		
-	    }
-	    
-	    )
-	}//회원 탈퇴
+			});
+		  
+		  
+		  
+	  }
+	})
+
 	
+	
+    }
+    
+    )
+}//회원 탈퇴
+
 
 
 	    	

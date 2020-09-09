@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,6 +41,8 @@ public class MemberController {
 	private ProgrammingDTO programmingDTO;
 	@Autowired
 	private MatchDTO matchDTO;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	@RequestMapping(value="/all/loginForm",method= {RequestMethod.GET,RequestMethod.POST})
 	public String loginForm() {
@@ -63,10 +66,10 @@ public class MemberController {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("username", username);
-		//System.out.println(username);
+		
 		
 		memberDTO = memberService.getMyPage(map);
-		//System.out.println(memberDTO.getUsername());
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberDTO", memberDTO);
 		mav.setViewName("/member/myPage");
@@ -93,36 +96,84 @@ public class MemberController {
 	}
 	
 	
+	  @ResponseBody
 	  @RequestMapping(value="/member/withdrawal",method=RequestMethod.POST) 
-	  public String withdrawal(@RequestParam String username) {
+	  public String withdrawal(@RequestParam String username, String password) {
 	  
-	  memberService.withdrawal(username);
+	  List<MemberDTO> list = memberService.getWithdrawalList(username);
+		  
 	  
-	  return "redirect:/all/loginForm"; 
-	  }
 	  
+	  System.out.println(memberDTO.getPassword());//db에서 받아온 비밀번호
+	  
+	  System.out.println(username);
+	  System.out.println(password);//입력한 비밀번호 
+	  
+	  String passwordEqual = null;
+	  
+	 //encoder.matches(password, memberDTO.getPassword());
+	 
+	 if(true==encoder.matches(password, memberDTO.getPassword())){
+		 
+		 System.out.println("비번 맞춤");
+		 
+		 memberService.withdrawal(username);
+		 
+		 passwordEqual = "equal";
+	 
+	 }else {
+	
+		 System.out.println("비번 틀림");
+		  
+		 passwordEqual = "unEqual";
+	 }
+	  
+	 return passwordEqual;
+	 
+	 }
+	  
+	  @ResponseBody
 	  @RequestMapping(value="/member/revise",method=RequestMethod.POST) 
 	  public String revise(@RequestParam String username, String password, String nickname) {
 		  
 	  System.out.println(username);
-	  System.out.println(password);
-	  System.out.println(nickname);
+	  System.out.println(password);//입력한 password
+	  System.out.println(nickname);//입력한 닉네임
 	  
-		
+	  		String revice = null;
 	  
 		 if(password == null || password == ""){ 
-			 System.out.println(username);
-			 System.out.println(password);
-			 System.out.println(nickname);
 			 
 			 Map<String, String> map = new HashMap<String, String>();
 		 	 map.put("username", username);
 		 	 map.put("nickname", nickname);
 		 	 
-		 	 memberService.nicknameRevice(map);
+		 	 List<MemberDTO> list = memberService.getNickName(nickname);
 		 	 
-		 	 return "/member/welcome"; 
 		 	 
+		 	 String dbNickName = "";
+		 	 
+		 	 for(int i = 0; i<list.size(); i++) {
+		 		dbNickName = list.get(i).getNickname();
+		 	 }
+		 	 
+		 	 if(dbNickName==null || dbNickName== "") {
+		 		 
+		 		System.out.println("닉네임 수정 가능");
+		 		 
+		 		memberService.nicknameRevice(map);
+		 		
+		 		revice = "onlyNickname";
+		 		
+		 	 }else {
+		 	
+		 		 System.out.println("닉네임 수정 불가능");
+		 		 
+		 		revice = "fail";
+		 		 
+		 	 }
+
+ 
 		 }else{
 	  
 			  Map<String, String> map = new HashMap<String, String>();
@@ -130,11 +181,37 @@ public class MemberController {
 			  map.put("password", password);
 			  map.put("nickname", nickname);
 			  
-			  memberService.revise(map);
+			  List<MemberDTO> list = memberService.getNickName(nickname);
 			  
-			  return "/member/welcome"; 
-		 }
+			  String dbNickName = "";
+			 	 
+			  for(int i = 0; i<list.size(); i++) {
+				dbNickName = list.get(i).getNickname();
+			  }
+			  
+			  if(dbNickName.equals(nickname)) {
+				  
+				  memberService.passwordRevise(map);
+				  System.out.println("비밀번호 바꿀때 닉네임이 같음");
+				  
+				  revice ="onlyPassword";
+				  
+			  }else {
+				  
 	  
+				  System.out.println("비밀번호 바꿀때 닉네임이 다름");
+				  memberService.revise(map);
+				  
+				  revice ="dualSuccess";
+			  }
+			  
+			  
+			  
+			  
+			 
+		 }
+		 
+		 return revice;
 	 
 	  }
 	  

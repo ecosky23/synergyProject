@@ -45,6 +45,12 @@ public interface MemberService {
 
 	public List<MemberDTO> getBoardList(Search search);
 
+	public List<MemberDTO> getWithdrawalList(String username);
+
+	public List<MemberDTO> getNickName(String nickname);
+
+	public void passwordRevise(Map<String, String> map);
+
 	
 
 	

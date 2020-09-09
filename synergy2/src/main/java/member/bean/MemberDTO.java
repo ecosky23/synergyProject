@@ -14,7 +14,7 @@ public class MemberDTO {
 	   private String auth;
 	   private String enabled;
 	   private int mycareer;
-	   private String created;
+	   private Date created;
 	   
 	   private int github;
 	   private int google;

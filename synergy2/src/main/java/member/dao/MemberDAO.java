@@ -42,5 +42,11 @@ public interface MemberDAO {
 
 	public abstract List<MemberDTO> getBoardList(Search search);
 
+	public abstract List<MemberDTO> getWithdrawalList(String username);
+
+	public abstract List<MemberDTO> getNickName(String nickname);
+
+	public abstract void passwordRevise(Map<String, String> map);
+
 
 }
