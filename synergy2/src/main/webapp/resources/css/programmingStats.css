@@ -55,6 +55,12 @@ html, body{
    
 }
 
+.aside_menu_list_1_a{
+	text-decoration: none;
+	border: none;
+	color:white;
+}
+
 .aside_menu_list_1:hover{
     color: rgba(200, 200, 200, 200);
 }
@@ -67,6 +73,12 @@ html, body{
     height: 50px;
     line-height: 50px;
     padding-top: 10px;
+}
+
+.aside_menu_list_2_a{
+	text-decoration: none;
+	border: none;
+	color:white;
 }
 
 .aside_menu_list_2:hover{
@@ -84,6 +96,12 @@ html, body{
     padding-top: 10px;
 }
 
+.aside_menu_list_3_a{
+	text-decoration: none;
+	border: none;
+	color:white;
+}
+
 .aside_menu_list_3:hover{
     color: rgba(200, 200, 200, 200);
 }
@@ -96,6 +114,12 @@ html, body{
     height: 50px;
     line-height: 50px;
     padding-top: 10px;
+}
+
+.aside_menu_list_4_a{
+	text-decoration: none;
+	border: none;
+	color:white;
 }
 
 .aside_menu_list_4:hover{

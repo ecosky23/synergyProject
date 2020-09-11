@@ -54,6 +54,13 @@ html, body{
     padding-top: 10px;
 }
 
+.aside_menu_list_1_a{
+	text-decoration: none;
+	border: none;
+	color:white;
+}
+
+
 .aside_menu_list_1:hover{
     color: rgba(200, 200, 200, 200);
 }
@@ -67,6 +74,13 @@ html, body{
     line-height: 50px;
     padding-top: 10px;
 }
+
+.aside_menu_list_2_a{
+	text-decoration: none;
+	border: none;
+	color:white;
+}
+
 
 .aside_menu_list_2:hover{
     color: rgba(200, 200, 200, 200);
@@ -83,6 +97,13 @@ html, body{
     padding-top: 10px;
 }
 
+.aside_menu_list_3_a{
+	text-decoration: none;
+	border: none;
+	color:white;
+}
+
+
 .aside_menu_list_3:hover{
     color: rgba(200, 200, 200, 200);
 }
@@ -96,6 +117,13 @@ html, body{
     line-height: 50px;
     padding-top: 10px;
 }
+
+.aside_menu_list_4_a{
+	text-decoration: none;
+	border: none;
+	color:white;
+}
+
 
 .aside_menu_list_4:hover{
     color: rgba(200, 200, 200, 200);
@@ -217,8 +245,17 @@ input[id="menuicon"]:checked + label + div {
 }
 
 .section_chart{
-    padding-top: 100px;  
+    padding-top: 80px;  
     padding-left: 50px;  
+    width: 500px;
+    height: 300px;
+}
+
+.section_chart2{
+	padding-left: 50px;  
+    width: 500px;
+    height: 300px;
+		
 }
 
 .footer{

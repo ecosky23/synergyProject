@@ -22,20 +22,28 @@
                 <ul class="aside_menu_list">
                 	<li class="aside_menu_top">Admin Menu</li>
                     <li class="aside_menu_list_1">
-                        <img src="../resources/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Member
+                    	<a href="/synergy2/all/adminStats" class="aside_menu_list_1_a">
+                        <img src="../resources/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
                         <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
+                    	</a>
                     </li>
                     <li class="aside_menu_list_2">
+                    	<a href="/synergy2/all/programmingStats" class="aside_menu_list_2_a">
                         <img src="../resources/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 50px;"/>
+                    	</a>
                     </li>
                     <li class="aside_menu_list_3">
+                    	<a href="/synergy2/all/adminBoard" class="aside_menu_list_3_a">
                         <img src="../resources/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
                         <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	</a>
                     </li>
                     <li class="aside_menu_list_4">
+                    	<a href="/synergy2/all/admin_map" class="aside_menu_list_4_a">
                         <img src="../resources/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
                         <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	</a>
                     </li>
                 </ul>
             </div>
@@ -66,7 +74,7 @@
         </div>
         
         <header class="header">
-            <div class="header_title">Admin Board</div>
+            <div class="header_title">Location Map</div>
         </header>
         <section class="section">
             <div class="section_main">
