@@ -74,7 +74,7 @@
         </div>
         
         <header class="header">
-            <div class="header_title">Location Map</div>
+            <div class="header_title"><img src="../resources/image/map3.png" style="width: 40px; height: 35px; margin-right:20px;"/>Location Map</div>
         </header>
         <section class="section">
             <div class="section_main">

@@ -248,8 +248,47 @@ input[id="menuicon"]:checked + label + div {
     padding-top: 80px;  
     padding-left: 50px;  
     width: 500px;
-    height: 300px;
+    height: 300px; 
+    float: left;
+	display: inline-block;
 }
+
+.totalDiv{
+	width: 300px;
+	height: 100px;
+	display: inline-block;
+	float:left;
+	padding-top: 80px;
+	margin-left: 30px;
+}
+
+.totalDiv ul li{
+	list-style: none;
+}
+
+.totalList{
+	background-color: rgb(40, 32, 114);
+	color: white;
+	font-size: 30px;
+	text-align: center;
+	border-bottom: solid;
+	border-bottom-color: white;
+	border-bottom-width: medium;
+}
+
+.totalList2{
+	text-align: center;
+	font-size: 80px;
+	background-color: rgb(40, 32, 114);
+	color: white;
+	height: 170px;
+	line-height:170px;
+}
+
+#myChart{
+	float: left;
+}
+
 
 .section_chart2{
 	padding-left: 50px;  

@@ -240,9 +240,15 @@ input[id="menuicon"]:checked + label + div {
 }
 
 .section_chart{
-    padding-top: 100px;  
-    padding-left: 50px;  
+    
+   padding-top: 100px;  
+    padding-left: 50px; 
 }
+
+
+
+
+
 
 .footer{
     float: left;

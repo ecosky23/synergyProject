@@ -77,12 +77,17 @@
         </div>
         
         <header class="header">
-            <div class="header_title">Member Static</div>
+            <div class="header_title"><img src="../resources/image/chartIcon.png" style="width: 40px; height: 35px; margin-right:20px;"/>Member Static</div>
         </header>
         <section class="section">
             <div class="section_chart">
                 <canvas id="myChart"></canvas>
-                <div class="memberTotal" id="memberTotal"></div>
+            </div>
+            <div class="totalDiv">
+            	<ul>
+            		<li class="totalList">총 회원 가입자 수</li>
+            		<li id="totalList2" class="totalList2"></li>
+            	</ul>
             </div>
             <div class="section_chart2">
             	<canvas id="myChart2"></canvas>
@@ -185,7 +190,7 @@ $(document).ready(function(){
 			
 			
 				
-	//		document.getElementById('memberTotal').innerHTML = memberTotal;
+			document.getElementById('totalList2').innerHTML = memberTotal;
 				
 			var ctx = document.getElementById('myChart2');
 			var myChart2 = new Chart(ctx, {

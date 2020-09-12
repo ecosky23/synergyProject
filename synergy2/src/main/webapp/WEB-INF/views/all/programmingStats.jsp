@@ -73,12 +73,13 @@
         </div>
         
         <header class="header">
-            <div class="header_title">Programming Stats</div>
+            <div class="header_title"><img src="../resources/image/chartIcon5.png" style="width: 40px; height: 35px; margin-right:20px;"/>Programming Stats</div>
         </header>
         <section class="section">
             <div class="section_chart">
                 <canvas id="myChart"></canvas>
             </div>
+            
         </section>
         <footer class="footer"></footer>
        
@@ -99,6 +100,8 @@ $(document).ready(function(){
 			
 	let b = new Array();
 	
+	let c = new Array();
+	
 	$.ajax({
 		type: 'post',
 		url: '/synergy2/all/getProgrammingStats',
@@ -117,6 +120,8 @@ $(document).ready(function(){
 				
 				a[index] = items.topicTotal
 				b[index] = items.topic;
+				
+				
 			});
 			
 			
@@ -134,6 +139,18 @@ $(document).ready(function(){
 			                'rgba(255, 206, 86, 0.2)',
 			                'rgba(75, 192, 192, 0.2)',
 			                'rgba(153, 102, 255, 0.2)',
+			                'rgba(255, 159, 64, 0.2)',
+			                'rgba(255, 100, 100, 0.2)',
+			                'rgba(255, 150, 150, 0.2)',
+			                'rgba(255, 200, 200, 0.2)',
+			                'rgba(255, 50, 200, 0.2)',
+			                'rgba(170, 170, 200, 0.2)',
+			                'rgba(230, 150, 100, 0.2)',
+			                'rgba(220, 80, 200, 0.2)',
+			                'rgba(255, 70, 80, 0.2)',
+			                'rgba(150, 200, 200, 0.2)',
+			                'rgba(100, 200, 100, 0.2)',
+			                'rgba(55, 200, 50, 0.2)',
 			            ],
 			            borderColor: [
 			                'rgba(255, 99, 132, 1)',
@@ -141,6 +158,18 @@ $(document).ready(function(){
 			                'rgba(255, 206, 86, 1)',
 			                'rgba(75, 192, 192, 1)',
 			                'rgba(153, 102, 255, 1)',
+			                'rgba(255, 159, 64, 1)',
+			                'rgba(255, 100, 100, 1)',
+			                'rgba(255, 150, 150, 1)',
+			                'rgba(255, 200, 200, 1)',
+			                'rgba(255, 50, 200, 1)',
+			                'rgba(170, 170, 200, 1)',
+			                'rgba(230, 150, 100, 1)',
+			                'rgba(220, 80, 200, 1)',
+			                'rgba(255, 70, 80, 1)',
+			                'rgba(150, 200, 200, 1)',
+			                'rgba(100, 200, 100, 1)',
+			                'rgba(55, 200, 50, 1)'
 			            ],
 			            borderWidth: 1
 			        }]
@@ -157,7 +186,7 @@ $(document).ready(function(){
 			});
 			
 			
-				console.log(a);
+				
 				
 			
 		},

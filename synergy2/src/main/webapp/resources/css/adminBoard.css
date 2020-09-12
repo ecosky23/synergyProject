@@ -126,6 +126,10 @@ html, body{
     color: rgba(200, 200, 200, 200);
 }
 
+.navbar{
+    margin: 0;
+   
+}
 
 /* 햄버거 바 */
 
@@ -316,7 +320,7 @@ input[id="menuicon"]:checked + label + div {
 
 /*페이징 창*/
 
-a{
+.page-link{
     text-decoration: none;
     border: solid;
     border-width: 1px;
