@@ -111,7 +111,9 @@ $(document).ready(function(){
 			
 	let b = new Array();
 	
-	let c;
+	let c = new Array();
+	
+	
 	$.ajax({
 		type: 'post',
 		url: '/synergy2/all/getAdminStats',

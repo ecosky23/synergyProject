@@ -254,15 +254,7 @@ public class MemberController {
 	  public String adminStats() {
 		  
 		  
-			/*
-			 * List<TotalDTO> list = memberService.getTotalStats();
-			 * 
-			 * System.out.println(list);
-			 * 
-			 * 
-			 * 
-			 * model.addAttribute("list", list);
-			 */
+		
 		  
 		  return "/all/adminStats";
 		  
@@ -342,55 +334,3 @@ public class MemberController {
 	
 }
 
-/*
- * @RequestMapping(value="/member/logout",method=RequestMethod.GET) public
- * String logout(HttpSession session) { session.invalidate();
- * 
- * return "/member/loginForm"; }
- */
-/*
- * @ResponseBody
- * 
- * @RequestMapping(value="/member/login",method=RequestMethod.POST) public
- * String login(@RequestParam String id, @RequestParam String pwd, HttpSession
- * session) {
- * 
- * MemberDTO memberDTO = memberService.login(id, pwd); String result = "";
- * 
- * if(memberDTO != null) { result = "success"; session.setAttribute("memId",
- * memberDTO.getId());
- * 
- * }else { result = "fail"; }
- * 
- * return result; }
- */
-
-/*
-	  @RequestMapping(value="/all/getSearchAdminBoard",method=RequestMethod.GET) 
-	  public String getSearchAdminBoard(@RequestParam(value="nowpage", defaultValue = "0") int nowpage, Model model, 
-			  							String username, String nickname) {
-		  
-		  int row =3;
-		  
-		  List<MemberDTO> list = new ArrayList<>(); 
-		  
-		  Map<String, String> map = new HashMap<String, String>();
-		  map.put("username", username);
-		  map.put("nickname", nickname);
-		  List<MemberDTO> temp = memberService.getSearchAdminBoard(map); 
-		  
-		  int totalpage = temp.size() / 3; if((list.size() % 3) > 0) totalpage++; 
-		   
-		  for(int i = nowpage * row; i < (nowpage * row) + row; i++) { 
-			  list.add(temp.get(i)); 
-		  }
-		  
-		  model.addAttribute("nowpage", nowpage); 
-		  model.addAttribute("totalpage", totalpage); 
-		  model.addAttribute("list", list);
-
-		  return "/all/adminBoard";
-		  
-	  }
-	  
- */
